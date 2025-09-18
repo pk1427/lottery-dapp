@@ -1,18 +1,21 @@
 [toolchain]
-anchor_version = "0.25.0"
+anchor_version = "0.30.1"
 
 [features]
 resolution = true
 skip-lint = false
 
 [programs.localnet]
-lottery_dapp = "PDmGe5v6jCkykenaS8gwMVNRMJ8rXA7Ag3c2ha3M9ZG"
+lottery_dapp = "AKpH6fPQEV7cxF4mRtEsHwtdnYRcNiYwTu6BZYGqUz8u"
+
+[programs.devnet]
+lottery_dapp = "AKpH6fPQEV7cxF4mRtEsHwtdnYRcNiYwTu6BZYGqUz8u"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "Devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

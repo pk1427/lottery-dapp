@@ -5,3 +5,29 @@ target
 node_modules
 test-ledger
 .yarn
+
+# Frontend
+lottery-dapp-frontend/node_modules
+lottery-dapp-frontend/dist
+lottery-dapp-frontend/.env
+lottery-dapp-frontend/.env.local
+
+# IDE
+.vscode
+.idea
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Build outputs
+build/
+dist/
