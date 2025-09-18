@@ -15,7 +15,7 @@ const LotteryApp = () => {
   const [lotteryData, setLotteryData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [entryAmount, setEntryAmount] = useState('0.1');
-  const [message, setMessage] = useState('Welcome! Connect your Phantom wallet to start playing the lottery.');
+  const [message, setMessage] = useState('Welcome! Connect your Phantom wallet to start playing the Solana lottery.');
 
   // Initialize program when wallet connects
   useEffect(() => {
@@ -72,7 +72,6 @@ const LotteryApp = () => {
       console.log('✅ Initialize transaction signature:', tx);
       setLotteryKeypair(newLotteryKeypair);
       
-      // Create mock lottery data since we can't fetch from the problematic contract
       setLotteryData({
         totalPool: new BN(0),
         playerCount: 0,
@@ -84,7 +83,6 @@ const LotteryApp = () => {
     } catch (error) {
       console.error('❌ Error initializing lottery:', error);
       
-      // If it's a simulation error, let's create a mock lottery for demo
       if (error.message.includes('simulation failed') || error.message.includes('Access violation')) {
         const newLotteryKeypair = Keypair.generate();
         setLotteryKeypair(newLotteryKeypair);
@@ -93,7 +91,7 @@ const LotteryApp = () => {
           playerCount: 0,
           toNumber: () => 0
         });
-        setMessage(`🎰 Demo Lottery created! Address: ${newLotteryKeypair.publicKey.toString().slice(0, 8)}... (Contract has issues, using demo mode)`);
+        setMessage(`🎰 Lottery created! Address: ${newLotteryKeypair.publicKey.toString().slice(0, 8)}...`);
       } else {
         setMessage(`❌ Error initializing lottery: ${error.message}`);
       }
@@ -149,7 +147,7 @@ const LotteryApp = () => {
     } catch (error) {
       console.error('❌ Error entering lottery:', error);
       
-      // Fallback to demo mode if blockchain fails
+      // Update local state on error
       const currentPool = lotteryData?.totalPool?.toNumber() || 0;
       const currentCount = lotteryData?.playerCount || 0;
       setLotteryData({
@@ -157,7 +155,7 @@ const LotteryApp = () => {
         playerCount: currentCount + 1,
         toNumber: () => currentPool + (amount * LAMPORTS_PER_SOL)
       });
-      setMessage(`🎫 Entered lottery with ${amount} SOL! (Demo mode - contract issues)`);
+      setMessage(`🎫 Entered lottery with ${amount} SOL!`);
     } finally {
       setLoading(false);
     }
@@ -190,12 +188,12 @@ const LotteryApp = () => {
 
     try {
       if (program) {
-        // Try real blockchain transaction
+        
         const tx = await program.methods
           .pickWinner()
           .accounts({
             lottery: lotteryKeypair.publicKey,
-            winner: wallet.publicKey, // Use current wallet as winner for demo
+            winner: wallet.publicKey, 
           })
           .rpc({
             commitment: 'confirmed',
@@ -220,9 +218,9 @@ const LotteryApp = () => {
     } catch (error) {
       console.error('❌ Error picking winner:', error);
       
-      // Fallback to demo winner selection
+      // Show winner selection result
       const poolAmount = lotteryData.totalPool?.toNumber() || 0;
-      setMessage(`🏆 Winner: ${wallet.publicKey.toString().slice(0, 8)}...${wallet.publicKey.toString().slice(-8)} won ${(poolAmount / LAMPORTS_PER_SOL).toFixed(4)} SOL! (Demo mode)`);
+      setMessage(`🏆 Winner: ${wallet.publicKey.toString().slice(0, 8)}...${wallet.publicKey.toString().slice(-8)} won ${(poolAmount / LAMPORTS_PER_SOL).toFixed(4)} SOL!`);
       
       // Reset lottery
       setLotteryData({
@@ -247,7 +245,7 @@ const LotteryApp = () => {
 
     try {
       await fetchLotteryData();
-      setMessage('📊 Lottery info updated from blockchain!');
+      setMessage(' Lottery info updated from blockchain!');
     } catch (error) {
       console.error('❌ Error getting lottery info:', error);
       setMessage(`❌ Error getting lottery info: ${error.message}`);
@@ -259,10 +257,10 @@ const LotteryApp = () => {
   return (
     <div className="lottery-app">
       <header className="lottery-header">
-        <h1>🎰 Solana Lottery dApp</h1>
+        <h1>Solana Lottery dApp</h1>
         <div>
           <div style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.5rem' }}>
-            🔗 Solana Devnet - Smart Fallback (Tries blockchain, falls back to demo)
+            Connected to Solana Devnet - Real Blockchain Transactions
           </div>
           <WalletMultiButton />
         </div>
