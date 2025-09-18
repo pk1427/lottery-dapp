@@ -1,14 +1,8 @@
-# 🎰 Solana Lottery dApp
+# Solana Lottery dApp
 
 A decentralized lottery application built on Solana using the Anchor framework with a React.js frontend.
 
-**🔗 Deployed Program ID:** `AKpH6fPQEV7cxF4mRtEsHwtdnYRcNiYwTu6BZYGqUz8u` (Devnet)
-
-**🎯 Live Demo:** Smart fallback system - attempts real blockchain transactions, gracefully falls back to demo mode for seamless user experience.
-
-## 📹 Demo Video
-
-[Add your demo video link here after recording]
+**Deployed Program ID:** `AKpH6fPQEV7cxF4mRtEsHwtdnYRcNiYwTu6BZYGqUz8u` (Devnet)
 
 ## Features
 
@@ -160,39 +154,3 @@ solana config set --url mainnet-beta
 # Deploy the program (requires real SOL for deployment fees)
 anchor deploy
 ```
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Wallet Connection Issues**: Make sure you have Phantom or Solflare installed and unlocked
-2. **Insufficient SOL**: Get SOL from the faucet for Devnet testing
-3. **RPC Errors**: Check your internet connection and RPC endpoint configuration
-4. **Build Errors**: Ensure you have the correct Rust and Anchor versions installed
-
-### Error Messages
-
-- "Wallet not connected": Connect your wallet first
-- "Please initialize a lottery first": Click "Initialize New Lottery"
-- "No players in the lottery yet": At least one player must enter before picking a winner
-- "Amount must be greater than 0": Enter a valid SOL amount
-
-## Demo Video
-
-[Link to demo video will be added here]
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-MIT License - see LICENSE file for details
-
-## Contact
-
-For questions or support, please contact: getappavengers@gmail.com
